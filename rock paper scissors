@@ -1,0 +1,88 @@
+from random import randint
+
+player = 'Select'
+x = ["Rock", "Paper", "Scissors"]
+computer = x[randint(0, 2)]
+pWins = 0
+pLoss = 0
+pTies = 0
+
+while player == 'Select':
+    player_choice = input("\u001b[32mDo You Want to Play? (y/n) ")
+    if player_choice.lower() == 'y':
+        player = True
+    elif player_choice.lower() == 'n':
+        player = False
+    else:
+        print('\u001b[31mType y/n only! \033[0m')
+        player = 'Select'
+
+while player == 'Rematch':
+    # This options enables you to continue, stop or restart the game
+    rematch_choice = input('\nDo you want to play another game? (y/n) or restart? (r) ')
+    if rematch_choice.lower() == 'y':
+        player = True
+        computer = x[randint(0, 2)]
+    elif rematch_choice.lower() == 'n':
+        player = False
+    elif rematch_choice.lower() == 'r':
+        print('All Scores Cleared!')
+        pWins = 0
+        pLoss = 0
+        pTies = 0
+        player = True
+    else:
+        print('\u001b[31mType y/n only! \033[0m')
+        player = 'Rematch'
+
+while player:
+    print('\n\u001b[32mNew Game Started!')
+    print("Total Wins:", pWins)
+    print("Total Loss:", pLoss)
+    print("Total Ties:", pTies)
+    player = input("Type: Rock, Paper, or Scissors? ")
+    if player == computer:
+        print("You both Selected the Same Thing!, It's a Tie!")
+        pTies = pTies + 1
+        player = 'Rematch'
+    elif player == "Rock":
+        if computer == "Paper":
+            print("You lose!", computer, "covers", player)
+            pLoss = pLoss + 1
+            player = 'Rematch'
+        else:
+            print("You win!", player, "smashes", computer)
+            pWins = pWins + 1
+            player = 'Rematch'
+    elif player == "Paper":
+        if computer == "Scissors":
+            print("You lose!", computer, "cut", player)
+            pLoss = pLoss + 1
+            player = 'Rematch'
+        else:
+            print("You win!", player, "covers", computer)
+            pWins = pWins + 1
+            player = 'Rematch'
+    elif player == "Scissors":
+        if computer == "Rock":
+            print("You lose...", computer, "smashes", player)
+            pLoss = pLoss + 1
+            player = 'Rematch'
+        else:
+            print("You win!", player, "cut", computer)
+            pWins = pWins + 1
+            player = 'Rematch'
+    else:
+        print("Error! Please check your spelling! and Try Again!")
+
+while not player:
+    print('\u001b[31mThanks for Playing!\nHere is your overall score: ')
+    totalScore = (pWins - pLoss) + (pTies / 2)
+    totalScore = float(totalScore)
+    print("Total Wins:", pWins)
+    print("Total Loss:", pLoss)
+    print("Total Ties:", pTies)
+    print(totalScore)
+    exit()
+
+
